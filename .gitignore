@@ -80,3 +80,12 @@ $RECYCLE.BIN/
 # Mac BS
 .DS_Store
 *idea/
+
+
+## 
+
+Assets/Standard\ Assets/
+Assets/SampleScenes/
+Assets/PostProcessing
+ProjectSettings/ProjectVersion.txt
+
