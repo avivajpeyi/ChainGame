@@ -206,7 +206,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 57977547c59abb546bbb1501e3c417db, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.83
+      value: 1.42
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 57977547c59abb546bbb1501e3c417db, type: 3}
       propertyPath: m_LocalPosition.z
@@ -674,7 +674,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 57977547c59abb546bbb1501e3c417db, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.83
+      value: 1.49
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 57977547c59abb546bbb1501e3c417db, type: 3}
       propertyPath: m_LocalPosition.z
@@ -765,6 +765,7 @@ MonoBehaviour:
   - {fileID: 876203649}
   - {fileID: 1859770142}
   speed: 20
+  max_xspeed: 0
 --- !u!1 &1859770142 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7383949400297660376, guid: 5e4bafacdf02b45fcb6c700b045ea09f,
