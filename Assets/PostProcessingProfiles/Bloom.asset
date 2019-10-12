@@ -73,7 +73,7 @@ MonoBehaviour:
     m_Enabled: 0
     m_Settings:
       focusDistance: 10
-      aperture: 5.6
+      aperture: 3.6
       focalLength: 50
       useCameraFov: 0
       kernelSize: 1
@@ -95,20 +95,20 @@ MonoBehaviour:
       adaptationType: 0
       speedUp: 2
       speedDown: 1
-      logMin: -9
+      logMin: -12
       logMax: 4
   bloom:
     m_Enabled: 1
     m_Settings:
       bloom:
-        intensity: 3.36
-        threshold: 1.25
-        softKnee: 0.911
-        radius: 3.36
+        intensity: 0.17
+        threshold: 1.28
+        softKnee: 0.313
+        radius: 1.94
         antiFlicker: 1
       lensDirt:
         texture: {fileID: 0}
-        intensity: 3
+        intensity: 5.95
   colorGrading:
     m_Enabled: 1
     m_Settings:
@@ -309,7 +309,7 @@ MonoBehaviour:
     m_Enabled: 1
     m_Settings:
       spectralTexture: {fileID: 0}
-      intensity: 0.473
+      intensity: 0.354
   grain:
     m_Enabled: 0
     m_Settings:
