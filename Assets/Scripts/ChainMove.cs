@@ -12,7 +12,7 @@ public class ChainMove : MonoBehaviour
     public GameObject[] grapplePoints;
     private int i = 0;
     private bool Chainmode;
-    public float speed;
+    public float speed, max_speed, acc;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,14 +24,78 @@ public class ChainMove : MonoBehaviour
     {
         //print(this.transform.position);
         //print(rb.velocity);
-        if (Input.GetKeyDown("q"))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            print("q key was pressed");
+            print("Space key was pressed");
             Chainmode=true;
         }
         if(Chainmode==true)
         {
             fly();
+        }
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            print("a key was pressed");
+            forceleft();
+        }
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            print("d key was pressed");
+            forceright();
+        }
+        
+        if (Input.GetKey(KeyCode.S))
+        {
+            print("s key was pressed");
+            forcedown();
+        }
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            print("w key was pressed");
+            forceup();
+        }
+    }
+
+    void forceleft()
+    {
+        print("moving left");
+        rb.AddForce(new Vector2(-acc,0));
+        if (rb.velocity.x < - max_speed)
+        {
+            rb.velocity= new Vector2(-max_speed,rb.velocity.y);
+        }
+    }
+
+    void forceright()
+    {
+        print("moving right");
+        rb.AddForce(new Vector2(acc,0));
+        if (rb.velocity.x > max_speed)
+        {
+            rb.velocity= new Vector2(max_speed,rb.velocity.y);
+        }
+    }
+
+    void forcedown()
+    {
+        print("moving down");
+        rb.AddForce(new Vector2(0,-acc));
+        if (rb.velocity.y < - max_speed)
+        {
+            rb.velocity= new Vector2(rb.velocity.x,-max_speed);
+        }
+    }
+
+    void forceup()
+    {
+        print("moving up");
+        rb.AddForce(new Vector2(0,acc));
+        if (rb.velocity.y > max_speed)
+        {
+            rb.velocity= new Vector2(rb.velocity.x,max_speed);
         }
     }
 
@@ -75,8 +139,8 @@ public class ChainMove : MonoBehaviour
     {
         Vector2 direction = endPoint-startPoint; //unscaled
         direction =  direction * (1 / (direction.magnitude)); //scaled
-        rb.velocity = speed * direction; //velocity
-        //rb.AddForce(speed*direction);
+        //rb.velocity = speed * direction; //velocity
+        rb.AddForce(speed*direction);
 
     }
 
