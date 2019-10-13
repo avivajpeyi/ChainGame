@@ -14,10 +14,15 @@ public class EnemyController : MonoBehaviour
     public int enemyType = 0 ;
     public SpriteRenderer renderer;
     public GameObject effectsController;
+    private float zombie_speed = 1;
+    private float zombie_shamble_factor = 3;
+    private GameObject Player;
+    private float randx, randy;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        Player=FindObjectOfType<PlayerMaster>().gameObject;
         gameController = FindObjectOfType<GameController>();
         SetMyColor();
         rb = this.gameObject.GetComponent<Rigidbody2D>();
@@ -27,6 +32,25 @@ public class EnemyController : MonoBehaviour
                 Random.Range(-enemy_max_speed, enemy_max_speed),
                 Random.Range(-enemy_max_speed, enemy_max_speed));
         }
+    }
+    void Update()
+    {
+        if(enemyType == 1)
+        {
+            //player_position = Player.transform.position;
+            zombie_shamble(this.transform.position, Player.transform.position, zombie_speed);
+        }
+    }
+
+    void zombie_shamble(Vector2 startPoint, Vector2 endPoint, float speed)
+    {
+        Vector2 direction = endPoint - startPoint; //unscaled
+        direction = direction * (1 / (direction.magnitude)); //scaled
+        rb.velocity = speed * direction;
+        randx = Random.Range(-1 * zombie_shamble_factor * zombie_speed,zombie_shamble_factor * zombie_speed);
+        randy = Random.Range(-1 * zombie_shamble_factor * zombie_speed,zombie_shamble_factor * zombie_speed);
+        rb.velocity += new Vector2(randx,randy);
+        //rb.AddForce(speed * direction);
     }
 
 
