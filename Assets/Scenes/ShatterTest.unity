@@ -496,11 +496,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db88a10bd22ef44b095485ab3bb34016, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grappleingEnemyType: 0
   renderer: {fileID: 207209980}
   trails: {fileID: 2023882638}
   deathEffectsController: {fileID: 1909300085215081898, guid: 10e65060dfc9344b1bccff271342af53,
     type: 3}
+--- !u!114 &630279189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 630279183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ec7bf08c0fdd4c66a01cdbbb0d8c756, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  max_speed: 10
+  acc: 40
 --- !u!1 &636295536
 GameObject:
   m_ObjectHideFlags: 0
@@ -739,7 +752,7 @@ GameObject:
   - component: {fileID: 1113416123}
   - component: {fileID: 1113416124}
   m_Layer: 0
-  m_Name: enemies
+  m_Name: EnemyMaster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -780,7 +793,9 @@ MonoBehaviour:
   worldWidth: 32
   worldHeight: 15
   currentEnemyList: []
+  targetEnemyList: []
   spawnSpeed: 1
+  max_targets: 10
 --- !u!1 &1176777291
 GameObject:
   m_ObjectHideFlags: 0
@@ -945,6 +960,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17e33bef1eb1248f28fcd48ae9563e63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grappleEnemyType: 0
   gameOverCanvas: {fileID: 198120538}
 --- !u!4 &1285876490
 Transform:
@@ -1618,5 +1634,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Trail
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6206384507797899, guid: 6ef861cc022064c258d5ae4446ada5ba, type: 3}
+    - {fileID: 6206384507797898, guid: 6ef861cc022064c258d5ae4446ada5ba, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6ef861cc022064c258d5ae4446ada5ba, type: 3}
