@@ -25,7 +25,7 @@ public class EnemyController : MonoBehaviour
     void OnCollisionEnter2D(Collision2D col)
     {
 
-        if (col.transform.tag == "Player")
+        if (col.transform.tag == "Player" && enemyType!=0)
         {
             OnEnemyDeath(col.relativeVelocity);
         }
