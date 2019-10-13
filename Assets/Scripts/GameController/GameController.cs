@@ -4,7 +4,7 @@ using UnityEngine;
 
 using UnityEngine;
 using UnityEngine.UI;
-
+using static EnemyMaster.EnemyType;
 
 using UnityEngine.SceneManagement;
 
@@ -13,7 +13,7 @@ public class GameController : MonoBehaviour
 {
 
     // the int ID of the enemy type that the player can grapple to 
-    public int grappleEnemyType = 0;
+    public EnemyMaster.EnemyType grappleEnemyType = GRAPPLING;
     public Canvas gameOverCanvas;
     
 
