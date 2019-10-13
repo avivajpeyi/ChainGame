@@ -8,7 +8,6 @@ public class EffectsController : MonoBehaviour
 {
     public ParticleSystem sparks;
     public ParticleSystem shardParticles;
-    
     [Header("Unity Setup")] public float time;
     
     
@@ -25,7 +24,7 @@ public class EffectsController : MonoBehaviour
 
     public void Play(Vector2 directionOfEffect)
     {
-        print("shards will be shot towards " + directionOfEffect);
+        //print("shards will be shot towards " + directionOfEffect);
         StartCoroutine(FindObjectOfType<CameraShake>().Shake(camShakeDuration, camShakeMagnitude));
         sparks.Play();
         shardParticles.transform.forward = directionOfEffect;
