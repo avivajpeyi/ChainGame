@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     
     private Rigidbody2D rb;
-    public float max_speed = 10;
+    public float maxSpeed = 10;
     public float acc = 40;
 
     // Start is called before the first frame update
@@ -23,62 +23,62 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
             // print("a key was pressed");
-            forceleft();
+            Forceleft();
         }
 
         if (Input.GetKey(KeyCode.D))
         {
             // print("d key was pressed");
-            forceright();
+            Forceright();
         }
 
         if (Input.GetKey(KeyCode.S))
         {
             //print("s key was pressed");
-            forcedown();
+            Forcedown();
         }
 
         if (Input.GetKey(KeyCode.W))
         {
             // print("w key was pressed");
-            forceup();
+            Forceup();
         }
     }
     
     
-    void forceleft()
+    void Forceleft()
     {
         rb.AddForce(new Vector2(-acc, 0));
-        if (rb.velocity.x < -max_speed)
+        if (rb.velocity.x < -maxSpeed)
         {
-            rb.velocity = new Vector2(-max_speed, rb.velocity.y);
+            rb.velocity = new Vector2(-maxSpeed, rb.velocity.y);
         }
     }
 
-    void forceright()
+    void Forceright()
     {
         rb.AddForce(new Vector2(acc, 0));
-        if (rb.velocity.x > max_speed)
+        if (rb.velocity.x > maxSpeed)
         {
-            rb.velocity = new Vector2(max_speed, rb.velocity.y);
+            rb.velocity = new Vector2(maxSpeed, rb.velocity.y);
         }
     }
 
-    void forcedown()
+    void Forcedown()
     {
         rb.AddForce(new Vector2(0, -acc));
-        if (rb.velocity.y < -max_speed)
+        if (rb.velocity.y < -maxSpeed)
         {
-            rb.velocity = new Vector2(rb.velocity.x, -max_speed);
+            rb.velocity = new Vector2(rb.velocity.x, -maxSpeed);
         }
     }
 
-    void forceup()
+    void Forceup()
     {
         rb.AddForce(new Vector2(0, acc));
-        if (rb.velocity.y > max_speed)
+        if (rb.velocity.y > maxSpeed)
         {
-            rb.velocity = new Vector2(rb.velocity.x, max_speed);
+            rb.velocity = new Vector2(rb.velocity.x, maxSpeed);
         }
     }
 

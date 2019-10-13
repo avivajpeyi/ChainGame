@@ -13,7 +13,6 @@ public class ChainMove : MonoBehaviour
     public float tolerance = 0.7f;
     [Range(0,50.0f)]
     public float grappleForceMagnitude=20;
-    public GameObject[] grapplePoints;
 
     // PRIVATE ATTRIBUTES
     private EnemyMaster enemyMaster;
@@ -31,15 +30,15 @@ public class ChainMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        enemyMaster.resetList(); // TODO: this is too expensive 
+        
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Chainmode = true;
         }
 
-        if (Chainmode == true)
+        if (Chainmode)
         {
-            grapplePoints = enemyMaster.targetEnemyList.ToArray();
+            enemyMaster.CleanEnemyListsOfDeadEnemies(); // TODO: this is too expensive 
             ChainToCurrentGrapplePoint();
         }
 
@@ -56,6 +55,8 @@ public class ChainMove : MonoBehaviour
 
     void ChainToCurrentGrapplePoint()
     {
+        
+        
         if (enemyMaster.targetEnemyList.Count<1  // if no grapple points
             || 
             grapplePointIdx > enemyMaster.targetEnemyList.Count - 1 // trying to access grapple point that doesnt exist
@@ -66,7 +67,7 @@ public class ChainMove : MonoBehaviour
         }
 
 
-        GameObject gp = grapplePoints[grapplePointIdx];
+        GameObject gp = enemyMaster.targetEnemyList[grapplePointIdx];
         try
         {
             float distanceBwPoints =
@@ -82,8 +83,9 @@ public class ChainMove : MonoBehaviour
         }
         catch (MissingReferenceException e)
         {
+            Debug.LogError("Error accessing enemy list : " + e);
             TurnOffChainMode();
-            enemyMaster.resetList();
+            enemyMaster.CleanEnemyListsOfDeadEnemies();
             
         }
     }

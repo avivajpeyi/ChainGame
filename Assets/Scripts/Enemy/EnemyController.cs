@@ -1,38 +1,62 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using static EnemyMaster.EnemyType;
+using Random = UnityEngine.Random;
 
 
 public class EnemyController : MonoBehaviour
 
 {
 
+
+
     private GameController gameController;
     private Rigidbody2D rb;
-    private float enemy_max_speed=1;
+    private float maxSpeed = 1;
+
+
     // Enemy type (right now just 0 and non-zero)
-    public int enemyType = 0 ;
+    public EnemyMaster.EnemyType type = 0;
     public SpriteRenderer renderer;
     public GameObject effectsController;
+
+
+    public static EnemyMaster.EnemyType GetRandomType()
+    {
+        return (EnemyMaster.EnemyType) Random.Range(
+            min: 0,
+            max: Enum.GetValues(typeof(EnemyMaster.EnemyType)).Length
+        );
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-
+        type = GetRandomType();
         gameController = FindObjectOfType<GameController>();
-        SetMyColor();
         rb = this.gameObject.GetComponent<Rigidbody2D>();
-        if(enemyType == gameController.grappleEnemyType)
+
+        SetMyColor();
+        SetMyCustomSettings();
+    }
+
+    private void SetMyCustomSettings()
+    {
+        if (type == gameController.grappleEnemyType)
         {
             rb.velocity = new Vector2(
-                Random.Range(-enemy_max_speed, enemy_max_speed),
-                Random.Range(-enemy_max_speed, enemy_max_speed));
+                Random.Range(-maxSpeed, maxSpeed),
+                Random.Range(-maxSpeed, maxSpeed));
         }
     }
 
 
     private void SetMyColor()
     {
-        if (enemyType == gameController.grappleEnemyType)
+        if (type == gameController.grappleEnemyType)
         {
             renderer.color = Color.red;
         }
@@ -45,11 +69,10 @@ public class EnemyController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-
         // Player can only kill "grappleEnemyType"
         if (col.gameObject.CompareTag("Player") &&
-            enemyType==gameController.grappleEnemyType  
-            )
+            type == gameController.grappleEnemyType
+        )
         {
             OnEnemyDeath(col.relativeVelocity);
         }
@@ -66,7 +89,7 @@ public class EnemyController : MonoBehaviour
         // Create a gameobject at the location of where the effect should play
         GameObject myEffects = Instantiate(
             original: effectsController,
-            position: this.transform.position, 
+            position: this.transform.position,
             rotation: Quaternion.identity
         );
         // Play the effect

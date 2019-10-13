@@ -12,22 +12,18 @@ public class PlayerMaster : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         gameController = FindObjectOfType<GameController>();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
+    
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.transform.tag == "Enemy")
+        if (col.gameObject.CompareTag("Enemy"))
         {
+            // non grappelling can kill me
             GameObject enemy = col.transform.gameObject;
             EnemyController enemyController = enemy.GetComponent<EnemyController>();
-            if (enemyController.enemyType != gameController.grappleEnemyType)
+            if (enemyController.type != gameController.grappleEnemyType)
                 OnPlayerDeath(col.relativeVelocity);
         }
     }
