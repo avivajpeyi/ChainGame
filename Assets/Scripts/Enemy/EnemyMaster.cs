@@ -10,6 +10,7 @@ public class EnemyMaster : MonoBehaviour
         STATIC,
         BALLISTIC,
         ZOMBIE,
+        FOLLOWER,
         SHOOTER
     };
 
@@ -58,7 +59,11 @@ public class EnemyMaster : MonoBehaviour
         for (int i = 0; i < numberEnemies; i++)
         {
             yield return new WaitForSeconds(spawnSpeed);
-            InstantiateEnemy();
+            if (!gameController.isGameOver)
+            {
+                InstantiateEnemy();
+            }
+
         }
     }
 

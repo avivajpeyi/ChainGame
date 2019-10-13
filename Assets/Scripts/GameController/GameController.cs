@@ -11,7 +11,8 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-
+    public bool isGameOver = false;
+    
     // the int ID of the enemy type that the player can grapple to 
     public EnemyMaster.EnemyType grappleEnemyType = GRAPPLING;
     public Canvas gameOverCanvas;
@@ -20,6 +21,7 @@ public class GameController : MonoBehaviour
 
     public void GameOver()
     {
+        isGameOver = true;
         gameOverCanvas.gameObject.SetActive(true);
     }
 

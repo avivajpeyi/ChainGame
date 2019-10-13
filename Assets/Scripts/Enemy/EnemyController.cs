@@ -54,16 +54,42 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    public void SetActiveTarget()
+    {
+        renderer.color = Color.blue;
+    }
+
     void Update()
     {
-        if (type == ZOMBIE)
+        if (!gameController.isGameOver)
         {
-            zombie_shamble(
-                startPoint: this.transform.position, 
-                endPoint: Player.transform.position,
-                speed: zombie_speed
+            if (type == ZOMBIE)
+            {
+                zombie_shamble(
+                    startPoint: this.transform.position, 
+                    endPoint: Player.transform.position,
+                    speed: zombie_speed
                 );
+            }
+            else if (type == FOLLOWER)
+            {
+                float randx = Random.Range(-1, 1);
+                float randy = Random.Range(-1, 1);
+                Vector2 endPoint = (Vector2) Player.transform.position +
+                                   new Vector2(randx, randy);
+                    
+                Vector2 pos = Vector2.Lerp (
+                    a: (Vector2)transform.position, 
+                    b:  endPoint, 
+                    Time.fixedDeltaTime);
+                rb.MovePosition(pos);
+            }
         }
+
+
+        
+        
+        
     }
 
     void zombie_shamble(Vector2 startPoint, Vector2 endPoint, float speed)
@@ -121,5 +147,6 @@ public class EnemyController : MonoBehaviour
         // Play the effect
         myEffects.GetComponent<EffectsController>().Play(relativeVelocity);
         Destroy(this.gameObject);
+        Destroy(this);
     }
 }
