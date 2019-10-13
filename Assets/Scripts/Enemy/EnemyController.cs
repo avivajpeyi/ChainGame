@@ -4,10 +4,12 @@ using UnityEngine;
 
 
 public class EnemyController : MonoBehaviour
+
 {
 
     private GameController gameController;
-    
+    private Rigidbody2D rb;
+    private float enemy_max_speed=1;
     // Enemy type (right now just 0 and non-zero)
     public int enemyType = 0 ;
     public SpriteRenderer renderer;
@@ -18,6 +20,13 @@ public class EnemyController : MonoBehaviour
 
         gameController = FindObjectOfType<GameController>();
         SetMyColor();
+        rb = this.gameObject.GetComponent<Rigidbody2D>();
+        if(enemyType == gameController.grappleEnemyType)
+        {
+            rb.velocity = new Vector2(
+                Random.Range(-enemy_max_speed, enemy_max_speed),
+                Random.Range(-enemy_max_speed, enemy_max_speed));
+        }
     }
 
 
