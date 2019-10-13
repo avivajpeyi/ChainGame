@@ -14,11 +14,12 @@ public class ChainMove : MonoBehaviour
     [Range(0,50.0f)]
     public float grappleForceMagnitude=20;
 
+    public ParticleSystem chainTrail;
+    
     // PRIVATE ATTRIBUTES
     private EnemyMaster enemyMaster;
     private PlayerSetTargets PlayerSetTargets;
     private Rigidbody2D rb;
-    private int grapplePointIdx = 0;
     private bool Chainmode;
 
     // Start is called before the first frame update
@@ -33,26 +34,36 @@ public class ChainMove : MonoBehaviour
     void Update()
     {
         
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetMouseButtonUp(0))
         {
-            Chainmode = true;
+            if (PlayerSetTargets.targets.Count != 0)
+            {
+                Chainmode = true;
+            }
+
         }
 
         if (Chainmode)
         {
-            PlayerSetTargets.CleanEnemyListsOfDeadEnemies();
-            enemyMaster.CleanEnemyListsOfDeadEnemies(); // TODO: this is too expensive 
-            ChainToCurrentGrapplePoint();
+            TurnOnChainMode();
         }
 
         
     }
 
+    void TurnOnChainMode()
+    {
+        chainTrail.Play();
+        PlayerSetTargets.CleanEnemyListsOfDeadEnemies();
+        enemyMaster.CleanEnemyListsOfDeadEnemies(); // TODO: this is too expensive 
+        ChainToCurrentGrapplePoint();
+    }
+
 
     void TurnOffChainMode()
     {
+        chainTrail.Stop();
         Chainmode=false;
-        grapplePointIdx=0;
     }
 
 
@@ -79,13 +90,13 @@ public class ChainMove : MonoBehaviour
             else
             {
                 PlayerSetTargets.targets.Remove(gp);
-                grapplePointIdx = grapplePointIdx + 1;
             }
         }
         catch (MissingReferenceException e)
         {
             Debug.LogError("Error accessing enemy list : " + e);
             TurnOffChainMode();
+            PlayerSetTargets.CleanEnemyListsOfDeadEnemies();
             enemyMaster.CleanEnemyListsOfDeadEnemies();
             
         }
@@ -96,7 +107,7 @@ public class ChainMove : MonoBehaviour
     {
         Vector2 direction = endPoint - startPoint; //unscaled
         direction = direction * (1 / (direction.magnitude)); //scaled
-        //rb.velocity = speed * direction; //velocity
-        rb.AddForce(speed * direction);
+        rb.velocity = speed * direction; //velocity
+        //rb.AddForce(speed * direction);
     }
 }

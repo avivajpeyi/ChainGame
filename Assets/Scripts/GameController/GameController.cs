@@ -15,14 +15,14 @@ public class GameController : MonoBehaviour
     
     // the int ID of the enemy type that the player can grapple to 
     public EnemyMaster.EnemyType grappleEnemyType = GRAPPLING;
-    public Canvas gameOverCanvas;
+    public GameObject gameOverpanel;
     
 
 
     public void GameOver()
     {
         isGameOver = true;
-        gameOverCanvas.gameObject.SetActive(true);
+        gameOverpanel.SetActive(true);
     }
 
 

@@ -56,12 +56,15 @@ public class EnemyController : MonoBehaviour
 
     private void SetMyCustomSettings()
     {
-        if (type == gameController.grappleEnemyType)
+        if (type == GRAPPLING ||
+            type == BALLISTIC)
         {
+            
             rb.velocity = new Vector2(
                 Random.Range(-maxSpeed, maxSpeed),
                 Random.Range(-maxSpeed, maxSpeed));
         }
+        
     }
 
     public void SetActiveTarget()

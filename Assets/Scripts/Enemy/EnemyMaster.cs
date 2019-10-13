@@ -25,8 +25,7 @@ public class EnemyMaster : MonoBehaviour
     private int numEnemies;
 
     public List<GameObject> currentEnemyList;
-    public List<GameObject> targetEnemyList;
-
+    
     public float spawnSpeed = 1;
     public int maxTargets = 10;
 
@@ -89,11 +88,6 @@ public class EnemyMaster : MonoBehaviour
     private void AddEnemyToList(GameObject newEnemy)
     {
         EnemyType enemyType = newEnemy.GetComponent<EnemyController>().type;
-        if (enemyType == gameController.grappleEnemyType &&
-            targetEnemyList.Count < maxTargets)
-        {
-            targetEnemyList.Add(newEnemy);
-        }
         currentEnemyList.Add(newEnemy);
     }
 
@@ -104,12 +98,6 @@ public class EnemyMaster : MonoBehaviour
         {
             if (currentEnemyList[i] == null)
                 currentEnemyList.RemoveAt(i);
-        }
-
-        for (var i = targetEnemyList.Count - 1; i > -1; i--)
-        {
-            if (targetEnemyList[i] == null)
-                targetEnemyList.RemoveAt(i);
         }
     }
 }

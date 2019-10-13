@@ -6,37 +6,57 @@ public class PlayerSetTargets : MonoBehaviour
 {
 
     public List<GameObject> targets;
-    //public GameObject mouseClickObject; 
-    
+    private SloMo slowMoController;
+    private GameController gameController;
     public GameObject effect;
     private ParticleSystem effectParticles;
     
     private bool mouseIsDown = false;
     private Vector2 mousePos2D;
+
+    public AudioSource audioSource;
+    public AudioClip[] selectionSounds;
+    private AudioClip selectionClip;
+    
+
+    void PlayAudioClip()
+    {
+        int index = Random.Range(0, selectionSounds.Length);
+        selectionClip = selectionSounds[index];
+        audioSource.clip = selectionClip;
+        audioSource.Play();
+    }   
     
     // Start is called before the first frame update
     void Start()
     {
+        gameController = FindObjectOfType<GameController>();
+        slowMoController = FindObjectOfType<SloMo>();
         effectParticles = effect.GetComponent<ParticleSystem>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        CheckPlayerClick();
-        UpdateEffect();
+        if (!gameController.isGameOver)
+        {
+            CheckPlayerClick();
+            UpdateEffect();
+        }
     }
     
     void UpdateEffect()
     {
         if (mouseIsDown)
         {
+            slowMoController.StartSlowmo();
             effect.SetActive(true);
             effect.transform.position = (Vector3) mousePos2D;
             effectParticles.Play();
         }
         else
-        {    
+        {   
+            slowMoController.EndSlowmo();
             effectParticles.Stop();
             effect.SetActive(false);
         }
@@ -67,13 +87,12 @@ public class PlayerSetTargets : MonoBehaviour
                 if (hitGo.CompareTag("Enemy"))
                 {
                     EnemyController ec = hitGo.GetComponent<EnemyController>();
-                    print(ec.type);
                     if (ec.type == EnemyMaster.EnemyType.GRAPPLING)
                     {
                         bool enemyAlreadyTarget = targets.Contains(hitGo);
                         if (!enemyAlreadyTarget)
                         {
-                            Debug.Log("Adding to list");
+                            PlayAudioClip();
                             hitGo.GetComponent<EnemyController>().SetActiveTarget();
                             targets.Add(hitGo);
                         }
@@ -84,6 +103,13 @@ public class PlayerSetTargets : MonoBehaviour
 
             }
         }
+        else
+        {
+            mouseIsDown = false;
+        }
+
+
+        
     }
 
 }
