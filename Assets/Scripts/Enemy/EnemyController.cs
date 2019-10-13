@@ -121,5 +121,6 @@ public class EnemyController : MonoBehaviour
         // Play the effect
         myEffects.GetComponent<EffectsController>().Play(relativeVelocity);
         Destroy(this.gameObject);
+        Destroy(this);
     }
 }
