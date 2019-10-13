@@ -29,7 +29,7 @@ public class PlayerMaster : MonoBehaviour
         {
             GameObject enemy = col.transform.gameObject;
             EnemyController enemyController = enemy.GetComponent<EnemyController>();
-            if (enemyController.enemyType == 0)
+            if (enemyController.enemyType >0)
                 OnPlayerDeath(col.relativeVelocity);
         }
     }
