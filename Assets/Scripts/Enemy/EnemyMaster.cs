@@ -63,7 +63,7 @@ public class EnemyMaster : MonoBehaviour
                 );
 
             int enemyType = Random.Range(0, 3);
-            print("Adding new enemy of type " + enemyType);
+            // print("Adding new enemy of type " + enemyType);
             currentEnemy.GetComponent<EnemyController>().enemyType = enemyType;
             currentEnemyList.Add(currentEnemy);
         }
