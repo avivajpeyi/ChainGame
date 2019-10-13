@@ -65,7 +65,7 @@ public class EnemyMaster : MonoBehaviour
                 );
 
             
-            int enemyType = Random.Range(0, 3);
+            int enemyType = Random.Range(0, 2);
             if (enemyType==0 && targetEnemyList.Count < max_targets)
             {
                 targetEnemyList.Add(currentEnemy);
