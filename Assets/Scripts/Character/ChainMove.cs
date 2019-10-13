@@ -12,7 +12,7 @@ public class ChainMove : MonoBehaviour
     public GameObject[] grapplePoints;
     private int i = 0;
     private bool Chainmode;
-    float tolerance = 1.0f;
+    float tolerance = 0.7f;
 
     private EnemyMaster enemyMaster;
 
@@ -28,6 +28,7 @@ public class ChainMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        enemyMaster.resetList();
         //print(this.transform.position);
         //print(rb.velocity);
         if (Input.GetKeyDown(KeyCode.Space))
@@ -38,8 +39,8 @@ public class ChainMove : MonoBehaviour
 
         if (Chainmode == true)
         {
-           
-            grapplePoints = enemyMaster.currentEnemyList.ToArray();
+            grapplePoints = enemyMaster.targetEnemyList.ToArray();
+            print(enemyMaster.targetEnemyList.Count);
             fly();
         }
 
@@ -107,13 +108,15 @@ public class ChainMove : MonoBehaviour
 
     void fly()
     {
-        if (grapplePoints.Length < 1)
+        if (enemyMaster.targetEnemyList.Count<1)
         {
             print("no grapple points");
+            Chainmode=false;
+            i=0;
             return;
         }
 
-        if (i > grapplePoints.Length - 1) //reset
+        if (i > enemyMaster.targetEnemyList.Count - 1) //reset
         {
             Chainmode = false;
             i = 0;

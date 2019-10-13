@@ -14,8 +14,10 @@ public class EnemyMaster : MonoBehaviour
     //private List<Vector2> spawnPositions;
 
     public List<GameObject> currentEnemyList;
+    public List<GameObject> targetEnemyList;
     
     public float spawnSpeed = 0;
+    public int max_targets = 10;
 
     void OnDrawGizmosSelected()
     {
@@ -63,9 +65,20 @@ public class EnemyMaster : MonoBehaviour
                 );
 
             int enemyType = Random.Range(0, 3);
+
+            if((enemyType==0) && (targetEnemyList.Count < max_targets))
+            {
+                targetEnemyList.Add(currentEnemy);
+            }
+            else
+            {
+                enemyType=1;
+            }
             print("Adding new enemy of type " + enemyType);
             currentEnemy.GetComponent<EnemyController>().enemyType = enemyType;
             currentEnemyList.Add(currentEnemy);
+
+            //print(currentEnemyList.Count);
         }
 
         
@@ -78,6 +91,12 @@ public class EnemyMaster : MonoBehaviour
             if (currentEnemyList[i] == null)
                 currentEnemyList.RemoveAt(i);
         }
+        for(var i = targetEnemyList.Count - 1; i > -1; i--)
+        {
+            if (targetEnemyList[i] == null)
+                targetEnemyList.RemoveAt(i);
+        }
+        
     }
 
 
