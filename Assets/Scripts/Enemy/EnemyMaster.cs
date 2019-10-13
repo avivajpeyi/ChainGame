@@ -10,6 +10,7 @@ public class EnemyMaster : MonoBehaviour
         STATIC,
         BALLISTIC,
         ZOMBIE,
+        FOLLOWER,
         SHOOTER
     };
 

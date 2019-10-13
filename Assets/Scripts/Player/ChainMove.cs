@@ -68,6 +68,7 @@ public class ChainMove : MonoBehaviour
 
 
         GameObject gp = enemyMaster.targetEnemyList[grapplePointIdx];
+        gp.GetComponent<EnemyController>().SetActiveTarget();
         try
         {
             float distanceBwPoints =
