@@ -16,6 +16,7 @@ public class ChainMove : MonoBehaviour
 
     // PRIVATE ATTRIBUTES
     private EnemyMaster enemyMaster;
+    private PlayerSetTargets PlayerSetTargets;
     private Rigidbody2D rb;
     private int grapplePointIdx = 0;
     private bool Chainmode;
@@ -23,6 +24,7 @@ public class ChainMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        PlayerSetTargets = GetComponent<PlayerSetTargets>();
         enemyMaster = FindObjectOfType<EnemyMaster>();
         rb = this.gameObject.GetComponent<Rigidbody2D>();
     }
@@ -38,6 +40,7 @@ public class ChainMove : MonoBehaviour
 
         if (Chainmode)
         {
+            PlayerSetTargets.CleanEnemyListsOfDeadEnemies();
             enemyMaster.CleanEnemyListsOfDeadEnemies(); // TODO: this is too expensive 
             ChainToCurrentGrapplePoint();
         }
@@ -56,18 +59,14 @@ public class ChainMove : MonoBehaviour
     void ChainToCurrentGrapplePoint()
     {
         
-        
-        if (enemyMaster.targetEnemyList.Count<1  // if no grapple points
-            || 
-            grapplePointIdx > enemyMaster.targetEnemyList.Count - 1 // trying to access grapple point that doesnt exist
-            )
+        if (PlayerSetTargets.targets.Count==0)
         {
             TurnOffChainMode();
             return;
         }
 
 
-        GameObject gp = enemyMaster.targetEnemyList[grapplePointIdx];
+        GameObject gp = PlayerSetTargets.targets[0];
         gp.GetComponent<EnemyController>().SetActiveTarget();
         try
         {
@@ -79,6 +78,7 @@ public class ChainMove : MonoBehaviour
             }
             else
             {
+                PlayerSetTargets.targets.Remove(gp);
                 grapplePointIdx = grapplePointIdx + 1;
             }
         }

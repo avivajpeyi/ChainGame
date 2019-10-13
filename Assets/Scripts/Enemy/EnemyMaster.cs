@@ -66,7 +66,10 @@ public class EnemyMaster : MonoBehaviour
 
         }
     }
-
+    
+    /// <summary>
+    /// Instantiates an enemy 
+    /// </summary>
     void InstantiateEnemy()
     {
         GameObject currentEnemy = Instantiate(
