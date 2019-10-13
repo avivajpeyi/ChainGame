@@ -10,19 +10,31 @@ using Random = UnityEngine.Random;
 public class EnemyController : MonoBehaviour
 
 {
-
-
-
     private GameController gameController;
     private Rigidbody2D rb;
     private float maxSpeed = 1;
-
-
-    // Enemy type (right now just 0 and non-zero)
-    public EnemyMaster.EnemyType type = 0;
+    
+    public EnemyMaster.EnemyType type = GRAPPLING;
     public SpriteRenderer renderer;
     public GameObject effectsController;
 
+    private float zombie_speed = 1;
+    private float zombie_shamble_factor = 3;
+    
+    private GameObject Player;
+    
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        type = GetRandomType();
+        Player = FindObjectOfType<PlayerMaster>().gameObject;
+        gameController = FindObjectOfType<GameController>();
+        rb = this.gameObject.GetComponent<Rigidbody2D>();
+
+        SetMyColor();
+        SetMyCustomSettings();
+    }
 
     public static EnemyMaster.EnemyType GetRandomType()
     {
@@ -30,17 +42,6 @@ public class EnemyController : MonoBehaviour
             min: 0,
             max: Enum.GetValues(typeof(EnemyMaster.EnemyType)).Length
         );
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        type = GetRandomType();
-        gameController = FindObjectOfType<GameController>();
-        rb = this.gameObject.GetComponent<Rigidbody2D>();
-
-        SetMyColor();
-        SetMyCustomSettings();
     }
 
     private void SetMyCustomSettings()
@@ -51,6 +52,31 @@ public class EnemyController : MonoBehaviour
                 Random.Range(-maxSpeed, maxSpeed),
                 Random.Range(-maxSpeed, maxSpeed));
         }
+    }
+
+    void Update()
+    {
+        if (type == ZOMBIE)
+        {
+            zombie_shamble(
+                startPoint: this.transform.position, 
+                endPoint: Player.transform.position,
+                speed: zombie_speed
+                );
+        }
+    }
+
+    void zombie_shamble(Vector2 startPoint, Vector2 endPoint, float speed)
+    {
+        Vector2 direction = endPoint - startPoint; //unscaled
+        direction = direction * (1 / (direction.magnitude)); //scaled
+        rb.velocity = speed * direction;
+        float randx = Random.Range(-1 * zombie_shamble_factor * zombie_speed,
+            zombie_shamble_factor * zombie_speed);
+        float randy = Random.Range(-1 * zombie_shamble_factor * zombie_speed,
+            zombie_shamble_factor * zombie_speed);
+        rb.velocity += new Vector2(randx, randy);
+        //rb.AddForce(speed * direction);
     }
 
 

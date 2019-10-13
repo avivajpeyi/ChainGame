@@ -8,7 +8,6 @@ public class PlayerMaster : MonoBehaviour
     public ParticleSystem trails;
     public GameObject deathEffectsController;
     private GameController gameController;
-
     // Start is called before the first frame update
     void Start()
     {
