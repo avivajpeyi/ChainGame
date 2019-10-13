@@ -56,7 +56,7 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        if (type == ZOMBIE)
+        if (type == ZOMBIE && !gameController.isGameOver)
         {
             zombie_shamble(
                 startPoint: this.transform.position, 

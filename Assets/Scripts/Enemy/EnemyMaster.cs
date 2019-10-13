@@ -58,7 +58,11 @@ public class EnemyMaster : MonoBehaviour
         for (int i = 0; i < numberEnemies; i++)
         {
             yield return new WaitForSeconds(spawnSpeed);
-            InstantiateEnemy();
+            if (!gameController.isGameOver)
+            {
+                InstantiateEnemy();
+            }
+
         }
     }
 

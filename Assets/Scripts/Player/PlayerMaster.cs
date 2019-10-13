@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerMaster : MonoBehaviour
 {
+   
     public SpriteRenderer renderer;
     public ParticleSystem trails;
     public GameObject deathEffectsController;
@@ -34,6 +35,9 @@ public class PlayerMaster : MonoBehaviour
             this.transform.position, Quaternion.identity);
         myEffects.GetComponent<EffectsController>().Play(relativeVelocity);
         gameController.GameOver();
-        Destroy(this.gameObject);
+
+        trails.Stop();
+        renderer.color = new Color(0.0f,0.0f,0.0f,0.0f);
+        Destroy(this.gameObject, 3);
     }
 }

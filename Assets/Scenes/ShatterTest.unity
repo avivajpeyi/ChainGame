@@ -512,7 +512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ec7bf08c0fdd4c66a01cdbbb0d8c756, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  max_speed: 10
+  maxSpeed: 10
   acc: 40
 --- !u!1 &636295536
 GameObject:
@@ -788,14 +788,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberEnemies: 0
-  fractionOfGrappleEnemies: 0
   enemy: {fileID: 7383949400297660376, guid: 5e4bafacdf02b45fcb6c700b045ea09f, type: 3}
   worldWidth: 32
   worldHeight: 15
   currentEnemyList: []
   targetEnemyList: []
   spawnSpeed: 1
-  max_targets: 10
+  maxTargets: 10
 --- !u!1 &1176777291
 GameObject:
   m_ObjectHideFlags: 0
@@ -960,6 +959,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17e33bef1eb1248f28fcd48ae9563e63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGameOver: 0
   grappleEnemyType: 0
   gameOverCanvas: {fileID: 198120538}
 --- !u!4 &1285876490
@@ -1494,11 +1494,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
-    - target: {fileID: 7383949400297660376, guid: 5e4bafacdf02b45fcb6c700b045ea09f,
-        type: 3}
-      propertyPath: m_TagString
-      value: Enemy
-      objectReference: {fileID: 0}
     - target: {fileID: 2670895449576689477, guid: 5e4bafacdf02b45fcb6c700b045ea09f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1553,10 +1548,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2124638420, guid: 5e4bafacdf02b45fcb6c700b045ea09f, type: 3}
-      propertyPath: enemyType
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e4bafacdf02b45fcb6c700b045ea09f, type: 3}
