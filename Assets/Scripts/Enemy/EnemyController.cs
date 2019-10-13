@@ -26,7 +26,15 @@ public class EnemyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        type = GetRandomType();
+        if (Time.time<5)
+        {
+            type = GRAPPLING;
+        }
+        else
+        {
+            type = GetRandomType();
+        }
+
         Player = FindObjectOfType<PlayerMaster>().gameObject;
         gameController = FindObjectOfType<GameController>();
         rb = this.gameObject.GetComponent<Rigidbody2D>();

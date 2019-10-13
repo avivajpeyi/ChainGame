@@ -27,7 +27,7 @@ public class EnemyMaster : MonoBehaviour
     public List<GameObject> currentEnemyList;
     public List<GameObject> targetEnemyList;
 
-    public float spawnSpeed = 0;
+    public float spawnSpeed = 1;
     public int maxTargets = 10;
 
     void OnDrawGizmosSelected()
