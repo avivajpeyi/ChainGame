@@ -15,16 +15,21 @@ public class ChainMove : MonoBehaviour
     public float grappleForceMagnitude=20;
 
     public ParticleSystem chainTrail;
+
+    private GameController.DeadEyeType chainType = GameController.DeadEyeType.VELOCITY;
     
     // PRIVATE ATTRIBUTES
     private EnemyMaster enemyMaster;
+    private GameController gameController;
     private PlayerSetTargets PlayerSetTargets;
     private Rigidbody2D rb;
-    private bool Chainmode;
+    public bool Chainmode;
 
     // Start is called before the first frame update
     void Start()
     {
+        gameController = FindObjectOfType<GameController>();
+        chainType = gameController.GetDeadEyePref();
         PlayerSetTargets = GetComponent<PlayerSetTargets>();
         enemyMaster = FindObjectOfType<EnemyMaster>();
         rb = this.gameObject.GetComponent<Rigidbody2D>();
@@ -107,7 +112,9 @@ public class ChainMove : MonoBehaviour
     {
         Vector2 direction = endPoint - startPoint; //unscaled
         direction = direction * (1 / (direction.magnitude)); //scaled
-        rb.velocity = speed * direction; //velocity
-        //rb.AddForce(speed * direction);
+        if (chainType==GameController.DeadEyeType.FORCE)
+            rb.AddForce(speed * direction);
+        else
+            rb.velocity = speed * direction; //velocity
     }
 }

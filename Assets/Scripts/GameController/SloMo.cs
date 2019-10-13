@@ -14,7 +14,8 @@ public class SloMo : MonoBehaviour
     public Image SlowMoImage;
     private GameObject SlowMoPanel;
     private Color currentColor;
-     
+
+    public AudioSource gameAudioSource;
     
     public bool m_SlowMo;
 
@@ -60,11 +61,10 @@ public class SloMo : MonoBehaviour
 
     void AdjustAudioPitch()
     {
-        AudioSource[] audioSouces = FindObjectsOfType<AudioSource>();
-        foreach (var audioSouce in audioSouces)
-        {
-            audioSouce.pitch = Time.timeScale;
-        }
+        if (m_SlowMo)
+            gameAudioSource.pitch = 0.9f;
+        else
+            gameAudioSource.pitch = 1f;
     }
 
 
