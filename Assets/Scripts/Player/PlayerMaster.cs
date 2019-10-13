@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class PlayerMaster : MonoBehaviour
 {
-    public int grappleingEnemyType = 0;
     public SpriteRenderer renderer;
     public ParticleSystem trails;
     public GameObject deathEffectsController;
-
     private GameController gameController;
 
     // Start is called before the first frame update
@@ -29,7 +27,7 @@ public class PlayerMaster : MonoBehaviour
         {
             GameObject enemy = col.transform.gameObject;
             EnemyController enemyController = enemy.GetComponent<EnemyController>();
-            if (enemyController.enemyType >0)
+            if (enemyController.enemyType != gameController.grappleEnemyType)
                 OnPlayerDeath(col.relativeVelocity);
         }
     }

@@ -11,7 +11,6 @@ public class EnemyMaster : MonoBehaviour
 
     public int worldWidth = 10;
     public int worldHeight = 10;
-    //private List<Vector2> spawnPositions;
 
     public List<GameObject> currentEnemyList;
     public List<GameObject> targetEnemyList;
@@ -44,14 +43,6 @@ public class EnemyMaster : MonoBehaviour
 
     IEnumerator CreateWorld()
     {
-//        for (int x = 0; x < worldWidth; x++)
-//        {
-//            for (int y = 0; y < worldHeight; y++)
-//            {
-//                Vector2 myVec = new Vector2(x,y);
-//                spawnPositions.Add(myVec);
-//            }
-//        }
         
         for (int i = 0; i < worldHeight*worldWidth; i++)
         {
@@ -74,13 +65,11 @@ public class EnemyMaster : MonoBehaviour
             {
                 enemyType=1;
             }
-            print("Adding new enemy of type " + enemyType);
             currentEnemy.GetComponent<EnemyController>().enemyType = enemyType;
             currentEnemyList.Add(currentEnemy);
 
-            //print(currentEnemyList.Count);
         }
-
+         
         
     }
 

@@ -6,35 +6,61 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
 
+    private GameController gameController;
+    
+    // Enemy type (right now just 0 and non-zero)
     public int enemyType = 0 ;
     public SpriteRenderer renderer;
     public GameObject effectsController;
     // Start is called before the first frame update
     void Start()
     {
-        
-        if (enemyType !=0)
-            renderer.color = Color.green;
+
+        gameController = FindObjectOfType<GameController>();
+        SetMyColor();
     }
 
-    // Update is called once per frame
-    void Update()
+
+    private void SetMyColor()
     {
+        if (enemyType == gameController.grappleEnemyType)
+        {
+            renderer.color = Color.red;
+        }
+        else
+        {
+            renderer.color = Color.green;
+        }
     }
+
 
     void OnCollisionEnter2D(Collision2D col)
     {
 
-        if (col.transform.tag == "Player" && enemyType==0)
+        // Player can only kill "grappleEnemyType"
+        if (col.gameObject.CompareTag("Player") &&
+            enemyType==gameController.grappleEnemyType  
+            )
         {
             OnEnemyDeath(col.relativeVelocity);
         }
     }
 
 
+    /// <summary>
+    /// Instantiates death particle effects and destroys the current game obj
+    /// </summary>
+    /// <param name="relativeVelocity"></param>
+    /// The relative velocity of the collision
     void OnEnemyDeath(Vector2 relativeVelocity)
     {
-        GameObject myEffects = Instantiate(effectsController, this.transform.position,  Quaternion.identity);
+        // Create a gameobject at the location of where the effect should play
+        GameObject myEffects = Instantiate(
+            original: effectsController,
+            position: this.transform.position, 
+            rotation: Quaternion.identity
+        );
+        // Play the effect
         myEffects.GetComponent<EffectsController>().Play(relativeVelocity);
         Destroy(this.gameObject);
     }

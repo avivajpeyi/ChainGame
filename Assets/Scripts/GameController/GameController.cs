@@ -11,21 +11,11 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    
-    
+
+    // the int ID of the enemy type that the player can grapple to 
+    public int grappleEnemyType = 0;
     public Canvas gameOverCanvas;
     
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
 
     public void GameOver()
