@@ -1,4 +1,3 @@
-##### Unity Version: [2019.2.8f1](https://unity3d.com/get-unity/download/archive)
 ##### Authors: Alex Kemp, Alex Dekker, Avi Vajpeyi
 ##### Play game on [itch.io](https://avivajpeyi.itch.io/chaingame)
 
@@ -24,4 +23,14 @@ Take a game mechanic from one dimension and recreate it in another
 ```
 We decided to take the `dead eye` mechanic from Red Dead Redemption, and put it into a 2D game.
 
+
 ![RED DEAD REDEMPTION EXAMPLE](https://raw.githubusercontent.com/avivajpeyi/ChainGame/dev/Images/RedDeadInspiration.gif)
+
+
+
+# How to contribute
+- Unity Version: [2019.2.8f1](https://unity3d.com/get-unity/download/archive)
+- Download Standard Assets and PostProcessing after cloning repo
+- Fork, do work in branch, make a PR to dev
+
+
