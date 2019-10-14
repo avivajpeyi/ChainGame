@@ -14,15 +14,23 @@ public class ChainMove : MonoBehaviour
     [Range(0,50.0f)]
     public float grappleForceMagnitude=20;
 
+    public ParticleSystem chainTrail;
+
+    private GameController.DeadEyeType chainType = GameController.DeadEyeType.VELOCITY;
+    
     // PRIVATE ATTRIBUTES
     private EnemyMaster enemyMaster;
+    private GameController gameController;
+    private PlayerSetTargets PlayerSetTargets;
     private Rigidbody2D rb;
-    private int grapplePointIdx = 0;
-    private bool Chainmode;
+    public bool Chainmode;
 
     // Start is called before the first frame update
     void Start()
     {
+        gameController = FindObjectOfType<GameController>();
+        chainType = gameController.GetDeadEyePref();
+        PlayerSetTargets = GetComponent<PlayerSetTargets>();
         enemyMaster = FindObjectOfType<EnemyMaster>();
         rb = this.gameObject.GetComponent<Rigidbody2D>();
     }
@@ -31,43 +39,50 @@ public class ChainMove : MonoBehaviour
     void Update()
     {
         
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetMouseButtonUp(0))
         {
-            Chainmode = true;
+            if (PlayerSetTargets.targets.Count != 0)
+            {
+                Chainmode = true;
+            }
+
         }
 
         if (Chainmode)
         {
-            enemyMaster.CleanEnemyListsOfDeadEnemies(); // TODO: this is too expensive 
-            ChainToCurrentGrapplePoint();
+            TurnOnChainMode();
         }
 
         
     }
 
+    void TurnOnChainMode()
+    {
+        chainTrail.Play();
+        PlayerSetTargets.CleanEnemyListsOfDeadEnemies();
+        enemyMaster.CleanEnemyListsOfDeadEnemies(); // TODO: this is too expensive 
+        ChainToCurrentGrapplePoint();
+    }
+
 
     void TurnOffChainMode()
     {
+        chainTrail.Stop();
         Chainmode=false;
-        grapplePointIdx=0;
     }
 
 
     void ChainToCurrentGrapplePoint()
     {
         
-        
-        if (enemyMaster.targetEnemyList.Count<1  // if no grapple points
-            || 
-            grapplePointIdx > enemyMaster.targetEnemyList.Count - 1 // trying to access grapple point that doesnt exist
-            )
+        if (PlayerSetTargets.targets.Count==0)
         {
             TurnOffChainMode();
             return;
         }
 
 
-        GameObject gp = enemyMaster.targetEnemyList[grapplePointIdx];
+        GameObject gp = PlayerSetTargets.targets[0];
         gp.GetComponent<EnemyController>().SetActiveTarget();
         try
         {
@@ -79,13 +94,14 @@ public class ChainMove : MonoBehaviour
             }
             else
             {
-                grapplePointIdx = grapplePointIdx + 1;
+                PlayerSetTargets.targets.Remove(gp);
             }
         }
         catch (MissingReferenceException e)
         {
             Debug.LogError("Error accessing enemy list : " + e);
             TurnOffChainMode();
+            PlayerSetTargets.CleanEnemyListsOfDeadEnemies();
             enemyMaster.CleanEnemyListsOfDeadEnemies();
             
         }
@@ -96,7 +112,9 @@ public class ChainMove : MonoBehaviour
     {
         Vector2 direction = endPoint - startPoint; //unscaled
         direction = direction * (1 / (direction.magnitude)); //scaled
-        //rb.velocity = speed * direction; //velocity
-        rb.AddForce(speed * direction);
+        if (chainType==GameController.DeadEyeType.FORCE)
+            rb.AddForce(speed * direction);
+        else
+            rb.velocity = speed * direction; //velocity
     }
 }

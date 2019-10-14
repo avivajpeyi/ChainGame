@@ -4823,6 +4823,7 @@ GameObject:
   - component: {fileID: 5938946055826101513}
   - component: {fileID: 630279184}
   - component: {fileID: 630279189}
+  - component: {fileID: 630279190}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -4882,6 +4883,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tolerance: 0.7
   grappleForceMagnitude: 20
+  chainTrail: {fileID: 352850159}
 --- !u!114 &630279184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4912,6 +4914,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 10
   acc: 40
+--- !u!114 &630279190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6206384507797892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df480c8cc440c431f89f136d7c710010, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targets: []
+  effect: {fileID: 0}
 --- !u!1001 &7700495836845204862
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4979,21 +4995,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7695425284639224934, guid: d49f7fe4768d740e5b4f8ffe1680115d,
-        type: 3}
-      propertyPath: rigidbody
-      value: 
-      objectReference: {fileID: 6206384507797897}
-    - target: {fileID: 7695425284639224935, guid: d49f7fe4768d740e5b4f8ffe1680115d,
-        type: 3}
-      propertyPath: rigidbody
-      value: 
-      objectReference: {fileID: 6206384507797897}
     - target: {fileID: 7695425284338068282, guid: d49f7fe4768d740e5b4f8ffe1680115d,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 7695425284639224935, guid: d49f7fe4768d740e5b4f8ffe1680115d,
+        type: 3}
+      propertyPath: rigidbody
+      value: 
+      objectReference: {fileID: 6206384507797897}
+    - target: {fileID: 7695425284639224934, guid: d49f7fe4768d740e5b4f8ffe1680115d,
+        type: 3}
+      propertyPath: rigidbody
+      value: 
+      objectReference: {fileID: 6206384507797897}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49f7fe4768d740e5b4f8ffe1680115d, type: 3}
 --- !u!4 &6206382696206618 stripped
