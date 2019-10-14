@@ -1,6 +1,6 @@
 ##### Unity Version: [2019.2.8f1](https://unity3d.com/get-unity/download/archive)
-
-## Authors: Alex Kemp, Alex Dekker, Avi Vajpeyi
+##### Authors: Alex Kemp, Alex Dekker, Avi Vajpeyi
+##### Play game on [itch.io](https://avivajpeyi.itch.io/chaingame)
 
 # Chain Game
 Chain-attack enemies to rack up points!
