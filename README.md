@@ -1,4 +1,4 @@
-##### Authors: Alex Kemp, Alex Dekker, Avi Vajpeyi
+##### Authors: Alex Kemp, Avi Vajpeyi
 ##### Play game on [itch.io](https://avivajpeyi.itch.io/chaingame)
 
 # Chain Game
