@@ -4,7 +4,8 @@
 
 # Chain Game
 Chain-attack enemies to rack up points!
-[GAMEPLAY GIF]
+
+![](https://raw.githubusercontent.com/avivajpeyi/ChainGame/dev/Images/gameplay.gif)
 
 ## CONTROLS
 
@@ -21,4 +22,5 @@ DIMENSION CHANGE
 Take a game mechanic from one dimension and recreate it in another
 ```
 We decided to take the `dead eye` mechanic from Red Dead Redemption, and put it into a 2D game.
-[DEADEYE EXAMPLE GIF]
+
+![](https://raw.githubusercontent.com/avivajpeyi/ChainGame/dev/Images/RedDeadInspiration.gif)
