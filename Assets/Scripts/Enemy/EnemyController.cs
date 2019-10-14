@@ -22,6 +22,7 @@ public class EnemyController : MonoBehaviour
     private float zombie_shamble_factor = 3;
     
     private GameObject Player;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -45,13 +46,10 @@ public class EnemyController : MonoBehaviour
 
     public static EnemyMaster.EnemyType GetRandomType()
     {
-        EnemyMaster.EnemyType randomEnemy = 
-            (EnemyMaster.EnemyType) Random.Range(
+        return (EnemyMaster.EnemyType) Random.Range(
             min: 0,
             max: Enum.GetValues(typeof(EnemyMaster.EnemyType)).Length
         );
-        
-        return randomEnemy;
     }
 
     private void SetMyCustomSettings()
