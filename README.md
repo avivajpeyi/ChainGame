@@ -5,7 +5,8 @@
 # Chain Game
 Chain-attack enemies to rack up points!
 
-![](https://raw.githubusercontent.com/avivajpeyi/ChainGame/dev/Images/gameplay.gif)
+[![GAMEPLAY DEMO](https://raw.githubusercontent.com/avivajpeyi/ChainGame/dev/Images/gameplay.gif)](https://www.youtube.com/watch?v=iwAs98UHaKk)
+
 
 ## CONTROLS
 
@@ -23,4 +24,4 @@ Take a game mechanic from one dimension and recreate it in another
 ```
 We decided to take the `dead eye` mechanic from Red Dead Redemption, and put it into a 2D game.
 
-![](https://raw.githubusercontent.com/avivajpeyi/ChainGame/dev/Images/RedDeadInspiration.gif)
+![RED DEAD REDEMPTION EXAMPLE](https://raw.githubusercontent.com/avivajpeyi/ChainGame/dev/Images/RedDeadInspiration.gif)
