@@ -8,8 +8,9 @@ Chain-attack enemies to rack up points!
 
 ## CONTROLS
 
-- **wasd** to move
+- **wasd** to move the player
 - **click/drag** mouse on red squares to select them for the chain
+
 Avoid the green squares! 
 
 This game was a submission for [Mix and Game Jam (2019)](https://itch.io/jam/mix-and-game-jam). 
