@@ -14,9 +14,9 @@ Chain-attack enemies to rack up points!
 
 Avoid the green squares! 
 
+## Theme
 This game was a submission for [Mix and Game Jam (2019)](https://itch.io/jam/mix-and-game-jam). 
 This jam's theme was:
-
 ```
 DIMENSION CHANGE
 Take a game mechanic from one dimension and recreate it in another
