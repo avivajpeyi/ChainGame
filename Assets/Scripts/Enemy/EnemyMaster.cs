@@ -4,18 +4,30 @@ using UnityEngine;
 
 public class EnemyMaster : MonoBehaviour
 {
+    public enum EnemyType
+    {
+        GRAPPLING,
+        STATIC,
+        BALLISTIC,
+        ZOMBIE,
+        FOLLOWER,
+        SHOOTER
+    };
+
     public int numberEnemies;
-    public float fractionOfGrappleEnemies;
 
     public GameObject enemy;
 
+    private GameController gameController;
+
     public int worldWidth = 10;
     public int worldHeight = 10;
-    //private List<Vector2> spawnPositions;
+    private int numEnemies;
 
     public List<GameObject> currentEnemyList;
     
-    public float spawnSpeed = 0;
+    public float spawnSpeed = 1;
+    public int maxTargets = 10;
 
     void OnDrawGizmosSelected()
     {
@@ -26,63 +38,66 @@ public class EnemyMaster : MonoBehaviour
         Vector3 topL = new Vector3(bottomL.x, bottomL.y + worldHeight, bottomL.z);
         Vector3 topR = new Vector3(topL.x + worldWidth, topL.y, topL.z);
         Vector3 bottomR = new Vector3(topR.x, topR.y - worldHeight, topR.z);
-        
+
         Gizmos.DrawLine(bottomL, bottomR);
         Gizmos.DrawLine(topL, topR);
         Gizmos.DrawLine(bottomR, topR);
         Gizmos.DrawLine(bottomL, topL);
     }
-    
-    
-    
+
+
     void Start()
     {
-        StartCoroutine(CreateWorld());
+        numberEnemies = worldHeight * worldWidth;
+        gameController = FindObjectOfType<GameController>();
+        StartCoroutine(SpawnEnemies());
     }
 
-    IEnumerator CreateWorld()
+    IEnumerator SpawnEnemies()
     {
-//        for (int x = 0; x < worldWidth; x++)
-//        {
-//            for (int y = 0; y < worldHeight; y++)
-//            {
-//                Vector2 myVec = new Vector2(x,y);
-//                spawnPositions.Add(myVec);
-//            }
-//        }
-        
-        for (int i = 0; i < worldHeight*worldWidth; i++)
+        for (int i = 0; i < numberEnemies; i++)
         {
             yield return new WaitForSeconds(spawnSpeed);
-            GameObject currentEnemy =Instantiate(enemy, Vector2.zero, enemy.transform
-            .rotation) as GameObject;
-            currentEnemy.transform.parent = transform;
-            currentEnemy.transform.localPosition = new Vector2(
-                Random.Range(0, worldWidth),
-                Random.Range(0, worldHeight)
-                );
+            if (!gameController.isGameOver)
+            {
+                InstantiateEnemy();
+            }
 
-            int enemyType = Random.Range(0, 3);
-            // print("Adding new enemy of type " + enemyType);
-            currentEnemy.GetComponent<EnemyController>().enemyType = enemyType;
-            currentEnemyList.Add(currentEnemy);
         }
-
+    }
+    
+    /// <summary>
+    /// Instantiates an enemy 
+    /// </summary>
+    void InstantiateEnemy()
+    {
+        GameObject currentEnemy = Instantiate(
+                original: enemy,
+                position: Vector2.zero,
+                rotation: enemy.transform.rotation)
+            ;
+        currentEnemy.transform.parent = transform;
+        currentEnemy.transform.localPosition = new Vector2(
+            Random.Range(0, worldWidth),
+            Random.Range(0, worldHeight)
+        );
         
+        AddEnemyToList(currentEnemy);
     }
 
-    public void resetList()
+    private void AddEnemyToList(GameObject newEnemy)
     {
-        for(var i = currentEnemyList.Count - 1; i > -1; i--)
+        EnemyType enemyType = newEnemy.GetComponent<EnemyController>().type;
+        currentEnemyList.Add(newEnemy);
+    }
+
+
+    public void CleanEnemyListsOfDeadEnemies()
+    {
+        for (var i = currentEnemyList.Count - 1; i > -1; i--)
         {
             if (currentEnemyList[i] == null)
                 currentEnemyList.RemoveAt(i);
         }
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 }

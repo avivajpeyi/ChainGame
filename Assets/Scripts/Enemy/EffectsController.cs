@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+
+using Random = UnityEngine.Random;
 using UnityEngine;
-using Random = System.Random;
 
 public class EffectsController : MonoBehaviour  
 {
@@ -17,14 +18,26 @@ public class EffectsController : MonoBehaviour
     [Range(0,1)]
     public float camShakeMagnitude = 0.5f;
     
-    private void Start()
-    { 
-       
+    public AudioSource audioSource;
+    public AudioClip[] shatterSounds;
+    private AudioClip shatterClip;
+    
+
+    void PlayAudioClip()
+    {
+        if (audioSource != null)
+        {
+            int index = Random.Range(0, shatterSounds.Length);
+            shatterClip = shatterSounds[index];
+            audioSource.clip = shatterClip;
+            audioSource.Play();
+        }
+        
     }
 
     public void Play(Vector2 directionOfEffect)
     {
-        //print("shards will be shot towards " + directionOfEffect);
+        PlayAudioClip();
         StartCoroutine(FindObjectOfType<CameraShake>().Shake(camShakeDuration, camShakeMagnitude));
         sparks.Play();
         shardParticles.transform.forward = directionOfEffect;
